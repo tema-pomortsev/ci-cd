@@ -8,7 +8,7 @@ on:
                 type: string
 
 jobs:
-    setup-node:
+    setup:
         runs-on: ubuntu-latest
         outputs:
             node-version: ${{ inputs.node-version }}
