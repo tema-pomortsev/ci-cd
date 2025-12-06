@@ -22,4 +22,3 @@ jobs:
                       docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
                       docker-compose pull
                       docker-compose up -d
-                      docker-compose ps

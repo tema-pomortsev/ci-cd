@@ -53,3 +53,10 @@ jobs:
                   push: true
                   tags: artempomortsev/backend:latest
                   platforms: linux/amd64,linux/arm64
+
+    deploy:
+        needs: [frontend, backend]
+        if: github.ref == 'refs/heads/main'
+        uses: ./.github/workflows/cd.yml
+        with:
+            environment: production
