@@ -1,9 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useMemo } from "react";
-import {quoteApi} from "../api/quote/api.ts";
+import { useQuote } from "../api/quote/api.ts";
 
 export function Quote() {
-    const { data: quote } = quoteApi.getQuote();
+    const { data: quote } = useQuote()
     
     const key = useMemo(() => {
         return quote ? `${quote.quote}-${quote.author}` : "loading";
