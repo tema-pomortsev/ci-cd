@@ -3,14 +3,13 @@ FROM node:20-alpine
 WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm install --production
 
 COPY . .
 
-RUN mkdir -p dist/data
-COPY src/data/quotes.json dist/data/
-
-RUN npm run build   # если нужно билдить NestJS
+RUN npm run build
 
 EXPOSE 3000
+
 CMD ["node", "dist/main.js"]

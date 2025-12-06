@@ -13,7 +13,7 @@ export class AppService {
     
     constructor() {
         const json = JSON.parse(
-            fs.readFileSync(path.join(__dirname, 'data', 'quotes.json'), 'utf-8')
+            fs.readFileSync(path.join(process.cwd(), 'public', 'data', 'quotes.json'), 'utf-8')
         ) as { quotes: Quote[] };
         
         this.quotes = json.quotes;
