@@ -20,6 +20,13 @@ export class AppService {
     
     async getQuote(): Promise<Quote> {
         const idx = Math.floor(Math.random() * this.quotes.length);
-        return this.quotes[idx];
+        return await new Promise((resolve, reject) => {
+            try {
+                resolve(this.quotes[idx]);
+            }
+            catch (error) {
+                reject('Ошибка в промисе')
+            }
+        })
     }
 }
