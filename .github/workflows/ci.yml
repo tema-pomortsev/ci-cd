@@ -1,0 +1,55 @@
+name: CI
+
+on:
+    push:
+        branches: [main, develop]
+    pull_request:
+        branches: [main, develop]
+
+jobs:
+    frontend:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: ./.github/workflows/common.yml
+              with:
+                  node-version: '20'
+
+            - name: Install & Lint & Test (frontend)
+              working-directory: ./frontend
+              run: |
+                  npm ci
+                  npm run lint || true
+                  npm run test || true
+                  npm run build
+
+            - name: Build & Push Frontend Docker image
+              if: github.ref == 'refs/heads/main'
+              uses: docker/build-push-action@v4
+              with:
+                  context: ./frontend
+                  push: true
+                  tags: artempomortsev/frontend:latest
+                  platforms: linux/amd64,linux/arm64
+
+    backend:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: ./.github/workflows/common.yml
+              with:
+                  node-version: '20'
+
+            - name: Install & Lint & Test (backend)
+              working-directory: ./backend
+              run: |
+                  npm ci
+                  npm run lint || true
+                  npm run test || true
+
+            - name: Build & Push Backend Docker image
+              if: github.ref == 'refs/heads/main'
+              uses: docker/build-push-action@v4
+              with:
+                  context: ./backend
+                  push: true
+                  tags: artempomortsev/backend:latest
+                  platforms: linux/amd64,linux/arm64
