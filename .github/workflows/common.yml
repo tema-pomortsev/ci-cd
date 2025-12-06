@@ -8,10 +8,12 @@ on:
                 type: string
 
 jobs:
-    checkout-and-setup:
+    setup-node:
         runs-on: ubuntu-latest
+        outputs:
+            node-version: ${{ inputs.node-version }}
         steps:
-            - name: Checkout code
+            - name: Checkout repository
               uses: actions/checkout@v4
 
             - name: Setup Node.js
