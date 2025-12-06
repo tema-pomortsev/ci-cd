@@ -22,5 +22,6 @@ jobs:
                       cd /root/projects/test
                       docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
                       docker compose pull
+                      docker compose down
                       docker compose up -d
                       docker compose ps
