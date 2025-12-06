@@ -25,7 +25,7 @@ export class AppService {
                 resolve(this.quotes[idx]);
             }
             catch (error) {
-                reject('Ошибка в промисе')
+                reject(new Error(`Ошибка в промисе ${error}`))
             }
         })
     }

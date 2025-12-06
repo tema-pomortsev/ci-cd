@@ -26,13 +26,19 @@ jobs:
                   npm run test || true
                   npm run build
 
+            - name: Login to Docker Hub
+              uses: docker/login-action@v3
+              with:
+                  username: ${{ secrets.DOCKERHUB_USERNAME }}
+                  password: ${{ secrets.DOCKERHUB_TOKEN }}
+
             - name: Build & Push Frontend Docker image
               if: github.ref == 'refs/heads/main'
               uses: docker/build-push-action@v4
               with:
                   context: ./frontend
                   push: true
-                  tags: artempomortsev/frontend:latest
+                  tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
 
     backend:
         runs-on: ubuntu-latest
@@ -52,10 +58,16 @@ jobs:
                   npm run lint || true
                   npm run test || true
 
+            - name: Login to Docker Hub
+              uses: docker/login-action@v3
+              with:
+                  username: ${{ secrets.DOCKERHUB_USERNAME }}
+                  password: ${{ secrets.DOCKERHUB_TOKEN }}
+
             - name: Build & Push Backend Docker image
               if: github.ref == 'refs/heads/main'
               uses: docker/build-push-action@v4
               with:
                   context: ./backend
                   push: true
-                  tags: artempomortsev/backend:latest
+                  tags: ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
