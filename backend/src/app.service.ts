@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from "node:fs";
+import path from "node:path";
 
 interface Quote {
     quote: string;
@@ -12,7 +13,7 @@ export class AppService {
     
     constructor() {
         const json = JSON.parse(
-            fs.readFileSync('./src/data/quotes.json', 'utf-8')
+            fs.readFileSync(path.join(__dirname, 'data', 'quotes.json'), 'utf-8')
         ) as { quotes: Quote[] };
         
         this.quotes = json.quotes;
