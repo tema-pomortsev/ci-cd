@@ -4,8 +4,10 @@ function App() {
     return (
     <div style={{ width: "100%" }}>
         <Quote />
-хуй
-    </div>
+        <div style={{ color: "white" }}
+            хуй
+        </div>
+    </div> 
     )
 }
 
